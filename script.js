@@ -136,6 +136,10 @@ function calculateTotalMonthlySalaries(){
         monthlySalaryExpense += salaryWithoutFormatting / MONTHS_IN_A_YEAR;
     }
     console.log("total monthly:", monthlySalaryExpense);
+
+    // go through the monthlySalaryExpense and put commas where appropriate
+    monthlySalaryExpense = monthlySalaryExpense.toLocaleString();
+    console.log("monthly Salary expense after making string:", monthlySalaryExpense);
     
     totalMonthlySalaryParagraph.innerText = "Total Monthly: $" + monthlySalaryExpense;
 }
