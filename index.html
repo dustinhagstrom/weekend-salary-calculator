@@ -14,54 +14,64 @@
   </header>
   <main>
     <h2>Add Employee</h2>
-    <input type="text" id="first-name" name="first-name" size="15" placeholder="First Name" />
-    <input type="text" id="last-name" name="last-name" size="15" placeholder="Last Name" />
-    <input type="text" id="id" name="id" size="15" placeholder="ID" />
-    <input type="text" id="title" name="title" size="15" placeholder="Title" />
-    <input type="text" id="salary" name="salary" size="15" placeholder="Annual Salary" />
-    <button id="submit" onclick="submitHandler()">Submit</button>
+    <form>
+      <input type="text" id="fname" name="lname" size="15" placeholder="First Name">
+      <input type="text" id="lname" name="lname" size="15" placeholder="Last Name">
+      <input type="text" id="id" name="id" size="15" placeholder="ID">
+      <input type="text" id="title" name="title" size="15" placeholder="Title">
+      <input type="text" id="salary" name="salary" size="15" placeholder="Annual Salary">
+      <button id="submit" onclick="submitHandler(event)">Submit</button>
+      </form>
     <h2>Employees</h2>
   </main>
   <!-- table start -->
   <table>
     <thead>
       <tr>
-        <th scope="col">First Name</th>
-        <th scope="col">Last Name</th>
-        <th scope="col">ID</th>
-        <th scope="col">Title</th>
-        <th scope="col">Annual Salary</th>
-        <th scope="col"></th>
+        <th id="fname-header" scope="col">First Name</th>
+        <th id="lname-header" scope="col">Last Name</th>
+        <th id="id-header" scope="col">ID</th>
+        <th id="title-header" scope="col">Title</th>
+        <th id="salary-header" scope="col">Annual Salary</th>
+        <th id="delete-header" scope="col"></th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td scope="row">Jen</td>
-        <td scope="row">Barber</td>
-        <td scope="row">4521</td>
-        <td scope="row">Team Lead</td>
-        <td scope="row">$ 80,000</td>
-        <td scope="row"><button onclick="deleteHandler()">Delete</button></td>
+        <td headers="fname-header">Jen</td>
+        <td headers="lname-header">Barber</td>
+        <td headers="id-header">4521</td>
+        <td headers="title-header">Team Lead</td>
+        <td headers="salary-header">$ 80,000</td>
+        <td headers="delete-header">
+          <button onclick="deleteHandler()">Delete</button>
+        </td>
       </tr>
       <tr>
-        <td scope="row">Maurice</td>
-        <td scope="row">Moss</td>
-        <td scope="row">8724</td>
-        <td scope="row">Support Team</td>
-        <td scope="row">$ 58,000</td>
-        <td scope="row"><button onclick="deleteHandler()">Delete</button></td>
+        <td headers="fname-header">Maurice</td>
+        <td headers="lname-header">Moss</td>
+        <td headers="id-header">8724</td>
+        <td headers="title-header">Support Team</td>
+        <td headers="salary-header">$ 58,000</td>
+        <td headers="delete-header">
+          <button onclick="deleteHandler()">Delete</button>
+        </td>
       </tr>
       <tr>
-        <td scope="row">Roy</td>
-        <td scope="row">Smith</td>
-        <td scope="row">9623</td>
-        <td scope="row">Quality Assurance</td>
-        <td scope="row">$ 48,000</td>
-        <td scope="row"><button onclick="deleteHandler()">Delete</button></td>
+        <td headers="fname-header">Roy</td>
+        <td headers="lname-header">Smith</td>
+        <td headers="id-header">9623</td>
+        <td headers="title-header">Quality Assurance</td>
+        <td headers="salary-header">$ 48,000</td>
+        <td headers="delete-header">
+          <button onclick="deleteHandler()">Delete</button>
+        </td>
       </tr>
     </tbody>
     <tfoot>
-      <tr></tr>
+      <tr>
+        <td colspan="6"></td>
+      </tr>
     </tfoot>
   </table>
   <footer>

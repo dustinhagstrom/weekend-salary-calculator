@@ -4,9 +4,14 @@
 let tbody = document.querySelector("tbody");
 console.log("tbody obj:",tbody);
 
+// get the form
+let form = document.querySelector("form");
+
+// get all of the input fields
+let formInputs = document.querySelectorAll("input");
 // get the input fields
-let fName = document.getElementById("first-name");
-let lName = document.getElementById("last-name");
+let fName = document.getElementById("fname");
+let lName = document.getElementById("lname");
 let id = document.getElementById("id");
 let title = document.getElementById("title");
 let salary = document.getElementById("salary");
@@ -22,17 +27,14 @@ console.log("submit button obj: ", submitButton);
 
 // this function will process the taking of input data
 // and creating a new row in the table.
-function submitHandler(){
+function submitHandler(event){
+    // prevent the page refresh
+    event.preventDefault();
 
     console.log("made it inside of submit");
 
-    // make tds from the input data
-
-    // make a tr
-
-    // append tds to tr
-
-    // append tr to tbody
+    // make and append row with data
+    appendsNewRow();
 
     // call the calculation function when new data added
     calculateTotal();
@@ -52,6 +54,44 @@ function deleteHandler(event){
 
     // call the calculation function when data is deleted.
     calculateTotal();
+}
+
+function appendsNewRow() {
+    // make a tr
+    let newRow = document.createElement("tr");
+    // make tds from the input data
+
+    for (const input of formInputs) {
+        // make tds
+        let data = document.createElement("td");
+        data.setAttribute("headers", `${input.name}-header`);
+        console.log("input obj's value:", input.value);
+        // set td text to input values
+        data.innerText = input.value;
+        // add a $ sign to salary
+        if (input.name === "salary") {
+            data.innerText = "$ " + data.innerText;
+        }
+        //reset input obj's text boxes
+        input.value = "";
+        // append tds to tr
+        newRow.appendChild(data);
+    }
+    // make a td for the button
+    let deleteCell = document.createElement("td");
+    deleteCell.setAttribute("headers", "delete-header");
+    // make a button to append to td
+    let deleteButton = document.createElement("button");
+    deleteButton.setAttribute("onclick", "deleteHandler()");
+    // set the text of the delete button
+    deleteButton.innerText = "Delete";
+    //append delete button to cell
+    deleteCell.appendChild(deleteButton);
+    
+    // append delete cell to tr
+    newRow.appendChild(deleteCell);
+    // append tr to tbody
+    tbody.append(newRow);
 }
 
 // this function will loop through the row entries in the
