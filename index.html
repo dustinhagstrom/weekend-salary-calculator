@@ -15,17 +15,17 @@
   <main>
     <h2>Add Employee</h2>
     <form>
-      <input type="text" id="fname" name="lname" size="15" placeholder="First Name">
-      <input type="text" id="lname" name="lname" size="15" placeholder="Last Name">
-      <input type="text" id="id" name="id" size="15" placeholder="ID">
-      <input type="text" id="title" name="title" size="15" placeholder="Title">
-      <input type="text" id="salary" name="salary" size="15" placeholder="Annual Salary">
-      <button id="submit" onclick="submitHandler(event)">Submit</button>
+      <input type="text" id="firstNameInput" name="firstNameInput" size="15" placeholder="First Name" data-testid="firstNameInput">
+      <input type="text" id="lastNameInput" name="lastNameInput" size="15" placeholder="Last Name" data-testid="lastNameInput">
+      <input type="text" id="idInput" name="idInput" size="15" placeholder="ID" data-testid="idInput">
+      <input type="text" id="titleInput" name="titleInput" size="15" placeholder="Title" data-testid="titleInput">
+      <input type="text" id="annualSalaryInput" name="annualSalaryInput" size="15" placeholder="Annual Salary" data-testid="annualSalaryInput">
+      <button id="submitButton" data-testid="submitButton" onclick="submitHandler(event)">Submit</button>
       </form>
     <h2>Employees</h2>
   </main>
   <!-- table start -->
-  <table>
+  <table id="employeeTable">
     <thead>
       <tr>
         <th id="fname-header" scope="col">First Name</th>
@@ -37,14 +37,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <!-- <tr>
         <td headers="fname-header">Jen</td>
         <td headers="lname-header">Barber</td>
         <td headers="id-header">4521</td>
         <td headers="title-header">Team Lead</td>
         <td headers="salary-header">$ 80,000</td>
         <td headers="delete-header">
-          <button onclick="deleteHandler()">Delete</button>
+          <button onclick="deleteHandler(event)">Delete</button>
         </td>
       </tr>
       <tr>
@@ -54,7 +54,7 @@
         <td headers="title-header">Support Team</td>
         <td headers="salary-header">$ 58,000</td>
         <td headers="delete-header">
-          <button onclick="deleteHandler()">Delete</button>
+          <button onclick="deleteHandler(event)">Delete</button>
         </td>
       </tr>
       <tr>
@@ -64,9 +64,9 @@
         <td headers="title-header">Quality Assurance</td>
         <td headers="salary-header">$ 48,000</td>
         <td headers="delete-header">
-          <button onclick="deleteHandler()">Delete</button>
+          <button onclick="deleteHandler(event)">Delete</button>
         </td>
-      </tr>
+      </tr> -->
     </tbody>
     <tfoot>
       <tr>
@@ -74,8 +74,8 @@
       </tr>
     </tfoot>
   </table>
-  <footer>
-    <p id="total-monthly"></p>
+  <footer id="employeeTableFooter">
+    <p id="total-monthly" class="within-budget"></p>
   </footer>
 </body>
 

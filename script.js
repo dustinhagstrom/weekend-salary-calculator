@@ -7,12 +7,12 @@ console.log("tbody obj:",tbody);
 // get all of the input fields
 let formInputs = document.querySelectorAll("input");
 // get the input fields
-let fName = document.getElementById("fname");
-let lName = document.getElementById("lname");
-let id = document.getElementById("id");
-let title = document.getElementById("title");
-let salary = document.getElementById("salary");
-let submitButton = document.getElementById("submit");
+let fName = document.getElementById("firstNameInput");
+let lName = document.getElementById("lastNameInput");
+let id = document.getElementById("idInput");
+let title = document.getElementById("titleInput");
+let salary = document.getElementById("annualSalaryInput");
+let submitButton = document.getElementById("submitButton");
 
 // get the total monthly p element
 let totalMonthlySalaryParagraph = document.getElementById("total-monthly");
@@ -52,15 +52,24 @@ function submitHandler(event){
 // this function will delete the row with which the pressed
 // delete button is associated with.
 function deleteHandler(event){
-
+    // stop default behavior
+    event.preventDefault();
     console.log("made it inside of delete");
 
-    // get the button from the event
+    // declare variable to store row to delete, set to delete button.
+    let currentDomNode = event.target;
+    // get the row to remove by traversing up the DOM tree to 
+    // the row that contains the delete button
+    while ((currentDomNode = currentDomNode.parentNode).nodeName !== "TR") {
+        // spin;
+    }
+    console.log("inside deleteHandler - row obj:", currentDomNode);
 
-    // navigate up the DOM tree to the tr
-
+    // store the tbody parent of the tr that we isolated
+    let parentOfRow = currentDomNode.parentNode;
+    console.log("this should be the tbody element:", parentOfRow);
     // remove the tr from the tbody
-
+    parentOfRow.removeChild(currentDomNode);
     // call the calculation function when data is deleted.
     calculateTotalMonthlySalaries();
 }
@@ -136,6 +145,11 @@ function calculateTotalMonthlySalaries(){
         monthlySalaryExpense += salaryWithoutFormatting / MONTHS_IN_A_YEAR;
     }
     console.log("total monthly:", monthlySalaryExpense);
+
+    if (monthlySalaryExpense > 20000){
+        totalMonthlySalaryParagraph.classList.replace("within-budget", "over-budget");
+    }
+    console.log("classes associated with total monthly salary:", totalMonthlySalaryParagraph.classList);
 
     // go through the monthlySalaryExpense and put commas where appropriate
     monthlySalaryExpense = monthlySalaryExpense.toLocaleString();

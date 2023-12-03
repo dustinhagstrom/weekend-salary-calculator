@@ -2,7 +2,13 @@
 // 🔥 DO NOT MODIFY THIS FILE!!!!! 🔥
 // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-const { fireEvent, getByText, queryByText, getByTestId } = require('@testing-library/dom')
+if (typeof TextEncode === 'undefined' || typeof TextDecoder === 'undefined') {
+  const { TextEncoder, TextDecoder } = require('text-encoding');
+  global.TextEncoder = TextEncoder;
+  global.TextDecoder = TextDecoder; 
+}
+
+const { fireEvent, getByText, queryByText, getByTestId, screen } = require('@testing-library/dom')
 require('@testing-library/jest-dom')
 const { JSDOM } = require('jsdom')
 
@@ -11,10 +17,11 @@ const path = require('path')
 
 const htmlFile = fs.readFileSync(path.resolve(__dirname, '../index.html'), 'utf8')
 const jsFile = fs.readFileSync(path.resolve(__dirname, '../script.js'), 'utf8')
+// console.log("jsFile:", jsFile);
 
 
 let dom
-let container
+// let container
 
 describe(`Weekend Salary Calculator:`, () => {
   beforeAll(() => {
@@ -24,11 +31,12 @@ describe(`Weekend Salary Calculator:`, () => {
 
   beforeEach(() => {
     dom = new JSDOM(htmlFile, { runScripts: 'dangerously' })
-
     // Execute script.js within the context of our jsdom instance:
     dom.window.eval(jsFile)
+    
+    // container = dom.window.document.body;
 
-    container = dom.window.document.body
+    // console.log("inside beforeEach - container:", screen);
   })
 
   const testEmployees = [
@@ -61,13 +69,15 @@ describe(`Weekend Salary Calculator:`, () => {
     //    gets passed in as an argument.
     // 3. Selects the submit button.
     // 4. Clicks the submit button.
-  function submitEmployee(container, employee) {
+  function submitEmployee(table, employee) {
+    // console.log("within submitEmployee - screen:", screen, "employee:", employee);
+
     // Select all five employee inputs:
-    const firstNameInput = getByTestId(container, 'firstNameInput')
-    const lastNameInput = getByTestId(container, 'lastNameInput')
-    const idInput = getByTestId(container, 'idInput')
-    const titleInput = getByTestId(container, 'titleInput')
-    const annualSalaryInput = getByTestId(container, 'annualSalaryInput')
+    const firstNameInput = getByTestId(screen, 'firstNameInput')
+    const lastNameInput = getByTestId(screen, 'lastNameInput')
+    const idInput = getByTestId(screen, 'idInput')
+    const titleInput = getByTestId(screen, 'titleInput')
+    const annualSalaryInput = getByTestId(screen, 'annualSalaryInput')
     
     // Populate the inputs with employee data:
     fireEvent.change(firstNameInput, {target: {value: employee.firstName}})
@@ -77,16 +87,16 @@ describe(`Weekend Salary Calculator:`, () => {
     fireEvent.change(annualSalaryInput, {target: {value: employee.annualSalary}})
     
     // Select the submit button:
-    const submitButton = getByTestId(container, 'submitButton')
+    const submitButton = getByTestId(table, 'submitButton')
     
     // Click the submit button:
     submitButton.click()
   }
 
-  it(`Adds a single new employee's data to the table`, () => {
-    const table = container.querySelector('table')
+  it.only(`Adds a single new employee's data to the table`, () => {
+    const table = screen.getByTestId('employeeTable');
     
-    submitEmployee(container, testEmployees[0])
+    submitEmployee(table, testEmployees[0])
 
     // Verify that the new employee's info is in the table:
     expect(getByText(table, /Annemiek/)).toBeInTheDocument()
@@ -97,9 +107,9 @@ describe(`Weekend Salary Calculator:`, () => {
   })
 
   it(`Adds multiple new employees' data to the table`, () => {
-    const table = container.querySelector('table')
+    const table = screen.getByTestId('employeeTable');
     
-    submitEmployee(container, testEmployees[0])
+    submitEmployee(table, testEmployees[0])
 
     // Verify that the first new employee's info is in the table:
     expect(getByText(table, /Annemiek/)).toBeInTheDocument()
@@ -108,7 +118,7 @@ describe(`Weekend Salary Calculator:`, () => {
     expect(getByText(table, /Professional Cyclist/)).toBeInTheDocument()
     expect(getByText(table, /120012|120,012/)).toBeInTheDocument()
 
-    submitEmployee(container, testEmployees[1])
+    submitEmployee(table, testEmployees[1])
 
     // Verify that the second new employee's info is in the table:
     expect(getByText(table, /Coco/)).toBeInTheDocument()
@@ -119,16 +129,16 @@ describe(`Weekend Salary Calculator:`, () => {
   })
 
   it(`Clears out the form inputs after a new employee is submitted`, () => {
-    const table = container.querySelector('table')
+    const table = screen.getByTestId('employeeTable');
     
-    submitEmployee(container, testEmployees[0])
+    submitEmployee(table, testEmployees[0])
 
     // Select all five employee inputs:
-    const firstNameInput = getByTestId(container, 'firstNameInput')
-    const lastNameInput = getByTestId(container, 'lastNameInput')
-    const idInput = getByTestId(container, 'idInput')
-    const titleInput = getByTestId(container, 'titleInput')
-    const annualSalaryInput = getByTestId(container, 'annualSalaryInput')
+    const firstNameInput = getByTestId(table, 'firstNameInput')
+    const lastNameInput = getByTestId(table, 'lastNameInput')
+    const idInput = getByTestId(table, 'idInput')
+    const titleInput = getByTestId(table, 'titleInput')
+    const annualSalaryInput = getByTestId(table, 'annualSalaryInput')
 
     // Verify that each input has been cleared:
     expect(firstNameInput).not.toHaveValue()
@@ -139,28 +149,31 @@ describe(`Weekend Salary Calculator:`, () => {
   })
 
   it(`Updates the total monthly salary value when a single employee is added`, () => {
-    const footer = container.querySelector('footer')
+    const table = screen.getByTestId('employeeTable');
+    const footer = screen.getByTestId("employeeTableFooter");
     
-    submitEmployee(container, testEmployees[0])
+    submitEmployee(table, testEmployees[0])
 
     expect(getByText(footer, /10001|10,001/)).toBeInTheDocument()
   })
 
   it(`Updates the total monthly salary value when multiple employees are added`, () => {
-    const footer = container.querySelector('footer')
+    const table = screen.getByTestId('employeeTable');
+    const footer = screen.querySelector('footer');
 
-    submitEmployee(container, testEmployees[0])
-    submitEmployee(container, testEmployees[1])
+    submitEmployee(table, testEmployees[0])
+    submitEmployee(table, testEmployees[1])
 
     expect(getByText(footer, /18001|18,001/)).toBeInTheDocument()
   })
 
   it(`Applies the 'over-budget' CSS class to the footer when the total monthly salary exceeds $20,000`, () => {
+    const table = screen.getByTestId('employeeTable');
     const footer = container.querySelector('footer')
     
-    submitEmployee(container, testEmployees[0])
-    submitEmployee(container, testEmployees[1])
-    submitEmployee(container, testEmployees[2])
+    submitEmployee(table, testEmployees[0])
+    submitEmployee(table, testEmployees[1])
+    submitEmployee(table, testEmployees[2])
 
     expect(footer).toHaveClass('over-budget')
   })
