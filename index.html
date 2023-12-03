@@ -1,20 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="style.css" />
   <title>Salary Calculator</title>
 </head>
+
 <body>
   <header>
     <h1>Salary Calculator</h1>
   </header>
   <main>
     <h2>Add Employee</h2>
+    <input type="text" id="first-name" name="first-name" size="15" placeholder="First Name" />
+    <input type="text" id="last-name" name="last-name" size="15" placeholder="Last Name" />
+    <input type="text" id="id" name="id" size="15" placeholder="ID" />
+    <input type="text" id="title" name="title" size="15" placeholder="Title" />
+    <input type="text" id="salary" name="salary" size="15" placeholder="Annual Salary" />
+    <button id="submit" onclick="">Submit</button>
     <h2>Employees</h2>
   </main>
+  <!-- table start -->
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">ID</th>
+        <th scope="col">Title</th>
+        <th scope="col">Annual Salary</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td scope="row">Jen</td>
+        <td scope="row">Barber</td>
+        <td scope="row">4521</td>
+        <td scope="row">Team Lead</td>
+        <td scope="row">Annual Salary</td>
+        <td scope="row"><button>Delete</button></td>
+      </tr>
+      <tr>
+        <td scope="row">Maurice</td>
+        <td scope="row">Moss</td>
+        <td scope="row">8724</td>
+        <td scope="row">Support Team</td>
+        <td scope="row">$ 58,000</td>
+        <td scope="row"><button>Delete</button></td>
+      </tr>
+      <tr>
+        <td scope="row">Roy</td>
+        <td scope="row">Smith</td>
+        <td scope="row">9623</td>
+        <td scope="row">Quality Assurance</td>
+        <td scope="row">$ 48,000</td>
+        <td scope="row"><button>Delete</button></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr></tr>
+    </tfoot>
+  </table>
   <footer>
-    <p>Total Monthly</p>
+    <p id="total-monthly">Total Monthly: $</p>
   </footer>
 </body>
+
 </html>
