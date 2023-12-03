@@ -4,9 +4,6 @@
 let tbody = document.querySelector("tbody");
 console.log("tbody obj:",tbody);
 
-// get the form
-let form = document.querySelector("form");
-
 // get all of the input fields
 let formInputs = document.querySelectorAll("input");
 // get the input fields
@@ -100,8 +97,18 @@ function appendsNewRow() {
 function calculateTotal(){
     console.log("we must of added or deleted something!");
     
+    let rowsArray = tbody.children;
+    console.log("child nodes in tbody:", rowsArray);
+    for (const row of rowsArray) {
+        let dataArray = row.children;
+        console.log("data array:", dataArray);
+        let salary = dataArray[4].innerText;
+        console.log("salaries:", salary);
+    }
     // loop through tbody
-    
+    // for () {
+    //     console.log
+    // }
     // loop through rows
     // get last td in each row and add them together
 
