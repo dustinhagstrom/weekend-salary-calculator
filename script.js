@@ -23,7 +23,16 @@ console.log("submit button obj: ", submitButton);
 // this function will process the taking of input data
 // and creating a new row in the table.
 function submitHandler(){
+
     console.log("made it inside of submit");
+
+    // make tds from the input data
+
+    // make a tr
+
+    // append tds to tr
+
+    // append tr to tbody
 
     // call the calculation function when new data added
     calculateTotal();
@@ -31,11 +40,18 @@ function submitHandler(){
 
 // this function will delete the row with which the pressed
 // delete button is associated with.
-function deleteHandler(){
+function deleteHandler(event){
 
     console.log("made it inside of delete");
 
+    // get the button from the event
+
+    // navigate up the DOM tree to the tr
+
+    // remove the tr from the tbody
+
     // call the calculation function when data is deleted.
+    calculateTotal();
 }
 
 // this function will loop through the row entries in the
