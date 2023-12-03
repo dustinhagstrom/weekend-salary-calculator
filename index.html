@@ -19,7 +19,7 @@
     <input type="text" id="id" name="id" size="15" placeholder="ID" />
     <input type="text" id="title" name="title" size="15" placeholder="Title" />
     <input type="text" id="salary" name="salary" size="15" placeholder="Annual Salary" />
-    <button id="submit" onclick="">Submit</button>
+    <button id="submit" onclick="submitHandler()">Submit</button>
     <h2>Employees</h2>
   </main>
   <!-- table start -->
@@ -41,7 +41,7 @@
         <td scope="row">4521</td>
         <td scope="row">Team Lead</td>
         <td scope="row">$ 80,000</td>
-        <td scope="row"><button>Delete</button></td>
+        <td scope="row"><button onclick="deleteHandler()">Delete</button></td>
       </tr>
       <tr>
         <td scope="row">Maurice</td>
@@ -49,7 +49,7 @@
         <td scope="row">8724</td>
         <td scope="row">Support Team</td>
         <td scope="row">$ 58,000</td>
-        <td scope="row"><button>Delete</button></td>
+        <td scope="row"><button onclick="deleteHandler()">Delete</button></td>
       </tr>
       <tr>
         <td scope="row">Roy</td>
@@ -57,7 +57,7 @@
         <td scope="row">9623</td>
         <td scope="row">Quality Assurance</td>
         <td scope="row">$ 48,000</td>
-        <td scope="row"><button>Delete</button></td>
+        <td scope="row"><button onclick="deleteHandler()">Delete</button></td>
       </tr>
     </tbody>
     <tfoot>
