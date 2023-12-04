@@ -2,7 +2,6 @@
 
 // get the tbody
 let tbody = document.querySelector("tbody");
-// console.log("tbody obj:",tbody);
 
 // get all of the input fields
 let formInputs = document.querySelectorAll("input");
@@ -16,15 +15,6 @@ let submitButton = document.getElementById("submitButton");
 
 // get the total monthly p element
 let totalMonthlySalaryParagraph = document.getElementById("total-monthly");
-// console.log("Total Monthly paragraph:", totalMonthlySalaryParagraph);
-
-// console.log input objects
-// console.log("input field obj fName: ", fName);
-// console.log("input field obj lName: ", lName);
-// console.log("input field obj id: ", id);
-// console.log("input field obj title: ", title);
-// console.log("input field obj salary: ", salary);
-// console.log("submit button obj: ", submitButton);
 
 // call the handlesDataCalculationsOnLoad function
 handlesDataCalculationsOnLoad();
@@ -40,8 +30,6 @@ function submitHandler(event) {
     // prevent the page refresh
     event.preventDefault();
 
-    // console.log("made it inside of submit");
-
     // make and append row with data
     appendsNewRow();
 
@@ -54,7 +42,6 @@ function submitHandler(event) {
 function deleteHandler(event) {
     // stop default behavior
     event.preventDefault();
-    // console.log("made it inside of delete");
 
     // declare variable to store row to delete, set to delete button.
     let currentDomNode = event.target;
@@ -63,11 +50,9 @@ function deleteHandler(event) {
     while ((currentDomNode = currentDomNode.parentNode).nodeName !== "TR") {
         // spin;
     }
-    // console.log("inside deleteHandler - row obj:", currentDomNode);
 
     // store the tbody parent of the tr that we isolated
     let parentOfRow = currentDomNode.parentNode;
-    // console.log("this should be the tbody element:", parentOfRow);
     // remove the tr from the tbody
     parentOfRow.removeChild(currentDomNode);
     // call the calculation function when data is deleted.
@@ -83,7 +68,6 @@ function appendsNewRow() {
         // make tds
         let data = document.createElement("td");
         data.setAttribute("headers", `${input.name}-header`);
-        // console.log("input obj's value:", input.value);
         // set td text to input values
         data.innerText = input.value;
         // add a $ sign to salary
@@ -97,7 +81,6 @@ function appendsNewRow() {
 
             // format our monthly salary expense to US number format
             salary = formatter.format(salary);
-            // console.log("salary in appendsNewRow:", salary);
             data.innerText = "$ " + salary;
         }
         //reset input obj's text boxes
@@ -128,8 +111,6 @@ function appendsNewRow() {
 // table and it will tabulate the total annual salaries
 // and put that data into a text box.
 function calculateTotalMonthlySalaries() {
-    // console.log("we must of added or deleted something!");
-
     // named constant to divide yearly salaries
     const MONTHS_IN_A_YEAR = 12;
 
@@ -138,25 +119,23 @@ function calculateTotalMonthlySalaries() {
 
     // rows in the tbody
     let rowsArray = tbody.children;
-    // console.log("child nodes in tbody:", rowsArray);
 
     // loop through tbody rows
     for (const row of rowsArray) {
         // put the data within each row into an array
         let dataArray = row.children;
-        // console.log("data array:", dataArray);
         // grab the salary data from the current row
         let salary = dataArray[4].innerText;
         // use regex to remove non-numerical chars
         let salaryWithoutFormatting = salary.replace(/[^0-9]/g, "");
-        // console.log("length of salary string:", salaryWithoutFormatting.length);
+
         // parse the salary string and turn into a number type
         salaryWithoutFormatting = parseInt(salaryWithoutFormatting);
-        // console.log("salaries:", salaryWithoutFormatting);
+
         // add the salary
         monthlySalaryExpense += salaryWithoutFormatting / MONTHS_IN_A_YEAR;
     }
-    // console.log("total monthly:", monthlySalaryExpense);
+
     monthlySalaryExpense = parseFloat(monthlySalaryExpense).toFixed(2);
     let classes = totalMonthlySalaryParagraph.classList;
     if (
@@ -173,7 +152,6 @@ function calculateTotalMonthlySalaries() {
             "within-budget"
         );
     }
-    // console.log("classes associated with total monthly salary:", totalMonthlySalaryParagraph.classList);
 
     // create a formatter for to represent the US number format
     const formatter = new Intl.NumberFormat("en-US", {
@@ -183,7 +161,6 @@ function calculateTotalMonthlySalaries() {
 
     // format our monthly salary expense to US number format
     monthlySalaryExpense = formatter.format(monthlySalaryExpense);
-    // console.log("monthly Salary expense after making string:", monthlySalaryExpense);
 
     totalMonthlySalaryParagraph.innerText =
         "Total Monthly: $" + monthlySalaryExpense;
