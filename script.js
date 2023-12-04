@@ -154,8 +154,11 @@ function calculateTotalMonthlySalaries() {
         salaryWithoutFormatting = parseInt(salaryWithoutFormatting);
         // console.log("salaries:", salaryWithoutFormatting);
         // add the salary
-        monthlySalaryExpense += salaryWithoutFormatting / MONTHS_IN_A_YEAR;
+        monthlySalaryExpense += salaryWithoutFormatting;
     }
+
+    // divide monthlySalaryExpense by months in a year
+    monthlySalaryExpense = monthlySalaryExpense / MONTHS_IN_A_YEAR;
     // console.log("total monthly:", monthlySalaryExpense);
     monthlySalaryExpense = parseFloat(monthlySalaryExpense).toFixed(2);
     let classes = totalMonthlySalaryParagraph.classList;
