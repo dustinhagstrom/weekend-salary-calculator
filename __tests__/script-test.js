@@ -20,10 +20,11 @@ const jsFile = fs.readFileSync(path.resolve(__dirname, '../script.js'), 'utf8')
 // console.log("jsFile:", jsFile);
 
 
-let dom
 // let container
 
 describe(`Weekend Salary Calculator:`, () => {
+  let dom;
+
   beforeAll(() => {
     // Silence console.log statements while the tests run:
     console.log = () => {}
@@ -33,7 +34,9 @@ describe(`Weekend Salary Calculator:`, () => {
     dom = new JSDOM(htmlFile, { runScripts: 'dangerously' })
     // Execute script.js within the context of our jsdom instance:
     dom.window.eval(jsFile)
-    
+
+    screen.debug = dom.window.console.log.bind(console);
+    console.log("the employee table:", screen.getByTestId("employeeTable"));
     // container = dom.window.document.body;
 
     // console.log("inside beforeEach - container:", screen);
@@ -94,16 +97,17 @@ describe(`Weekend Salary Calculator:`, () => {
   }
 
   it.only(`Adds a single new employee's data to the table`, () => {
+    console.log("the employee table:", screen.getByTestId("employeeTable"));
     const table = screen.getByTestId('employeeTable');
     
     submitEmployee(table, testEmployees[0])
 
     // Verify that the new employee's info is in the table:
-    expect(getByText(table, /Annemiek/)).toBeInTheDocument()
-    expect(getByText(table, /van Vleuten/)).toBeInTheDocument()
-    expect(getByText(table, /10101/)).toBeInTheDocument()
-    expect(getByText(table, /Professional Cyclist/)).toBeInTheDocument()
-    expect(getByText(table, /120012|120,012/)).toBeInTheDocument()
+    expect(getByText(screen, /Annemiek/)).toBeInTheDocument()
+    expect(getByText(screen, /van Vleuten/)).toBeInTheDocument()
+    expect(getByText(screen, /10101/)).toBeInTheDocument()
+    expect(getByText(screen, /Professional Cyclist/)).toBeInTheDocument()
+    expect(getByText(screen, /120012|120,012/)).toBeInTheDocument()
   })
 
   it(`Adds multiple new employees' data to the table`, () => {
@@ -169,7 +173,7 @@ describe(`Weekend Salary Calculator:`, () => {
 
   it(`Applies the 'over-budget' CSS class to the footer when the total monthly salary exceeds $20,000`, () => {
     const table = screen.getByTestId('employeeTable');
-    const footer = container.querySelector('footer')
+    const footer = screen.querySelector('footer');
     
     submitEmployee(table, testEmployees[0])
     submitEmployee(table, testEmployees[1])
@@ -179,11 +183,11 @@ describe(`Weekend Salary Calculator:`, () => {
   })
 
   it(`Removes the correct employee table row when a delete button is clicked`, () => {
-    const table = container.querySelector('table')
+    const table = screen.getByTestId('employeeTable');
     
-    submitEmployee(container, testEmployees[0])
-    submitEmployee(container, testEmployees[1])
-    submitEmployee(container, testEmployees[2])
+    submitEmployee(table, testEmployees[0])
+    submitEmployee(table, testEmployees[1])
+    submitEmployee(table, testEmployees[2])
     
     const tableButtons = table.querySelectorAll('button')
     const secondRowsButton = tableButtons[1]

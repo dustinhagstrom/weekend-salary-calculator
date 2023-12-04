@@ -15,58 +15,68 @@
   <main>
     <h2>Add Employee</h2>
     <form>
-      <input type="text" id="firstNameInput" name="firstNameInput" size="15" placeholder="First Name" data-testid="firstNameInput">
-      <input type="text" id="lastNameInput" name="lastNameInput" size="15" placeholder="Last Name" data-testid="lastNameInput">
-      <input type="text" id="idInput" name="idInput" size="15" placeholder="ID" data-testid="idInput">
-      <input type="text" id="titleInput" name="titleInput" size="15" placeholder="Title" data-testid="titleInput">
-      <input type="text" id="annualSalaryInput" name="annualSalaryInput" size="15" placeholder="Annual Salary" data-testid="annualSalaryInput">
-      <button id="submitButton" data-testid="submitButton" onclick="submitHandler(event)">Submit</button>
-      </form>
+      <section id="addEmployeeContainer">
+        <div id="inputsContainer">
+          <input type="text" id="firstNameInput" name="firstNameInput" size="15" placeholder="First Name"
+            data-testid="firstNameInput" />
+          <input type="text" id="lastNameInput" name="lastNameInput" size="15" placeholder="Last Name"
+            data-testid="lastNameInput" />
+          <input type="text" id="idInput" name="idInput" size="15" placeholder="ID" data-testid="idInput" />
+          <input type="text" id="titleInput" name="titleInput" size="15" placeholder="Title" data-testid="titleInput" />
+          <input type="text" id="annualSalaryInput" name="annualSalaryInput" size="15" placeholder="Annual Salary"
+            data-testid="annualSalaryInput" />
+        </div>
+        <div id="buttonContainer">
+          <button id="submitButton" data-testid="submitButton" onclick="submitHandler(event)">
+            Submit
+          </button>
+        </div>
+      </section>
+    </form>
     <h2>Employees</h2>
   </main>
-  <!-- table start -->
-  <table id="employeeTable">
+  <table id="employeeTable" data-testid="employeeTable">
     <thead>
       <tr>
-        <th id="fname-header" scope="col">First Name</th>
-        <th id="lname-header" scope="col">Last Name</th>
-        <th id="id-header" scope="col">ID</th>
-        <th id="title-header" scope="col">Title</th>
-        <th id="salary-header" scope="col">Annual Salary</th>
+        <th id="firstNameInput-header" scope="col">First Name</th>
+        <th id="lastNameInput-header" scope="col">Last Name</th>
+        <th id="idInput-header" scope="col">ID</th>
+        <th id="titleInput-header" scope="col">Title</th>
+        <th id="annualSalaryInput-header" scope="col">Annual Salary</th>
         <th id="delete-header" scope="col"></th>
       </tr>
     </thead>
     <tbody>
-      <!-- <tr>
-        <td headers="fname-header">Jen</td>
-        <td headers="lname-header">Barber</td>
-        <td headers="id-header">4521</td>
-        <td headers="title-header">Team Lead</td>
-        <td headers="salary-header">$ 80,000</td>
+      <tr>
+        <td headers="firstNameInput-header">Jen</td>
+        <td headers="lastNameInput-header">Barber</td>
+        <td headers="idInput-header">4521</td>
+        <td headers="titleInput-header">Team Lead</td>
+        <td headers="annualSalaryInput-header">$ 80,000</td>
         <td headers="delete-header">
-          <button onclick="deleteHandler(event)">Delete</button>
+          <button class="delete" onclick="deleteHandler(event)">Delete</button>
         </td>
       </tr>
       <tr>
-        <td headers="fname-header">Maurice</td>
-        <td headers="lname-header">Moss</td>
-        <td headers="id-header">8724</td>
-        <td headers="title-header">Support Team</td>
-        <td headers="salary-header">$ 58,000</td>
+        <td headers="firstNameInput-header">Maurice</td>
+        <td headers="lastNameInput-header">Moss</td>
+        <td headers="idInput-header">8724</td>
+        <td headers="titleInput-header">Support Team</td>
+        <td headers="annualSalaryInput-header">$ 58,000</td>
         <td headers="delete-header">
-          <button onclick="deleteHandler(event)">Delete</button>
+          <button class="delete" onclick="deleteHandler(event)">Delete</button>
         </td>
       </tr>
       <tr>
-        <td headers="fname-header">Roy</td>
-        <td headers="lname-header">Smith</td>
-        <td headers="id-header">9623</td>
-        <td headers="title-header">Quality Assurance</td>
-        <td headers="salary-header">$ 48,000</td>
+        <td headers="firstNameInput-header">Roy</td>
+        <td headers="lastNameInput-header">Smith</td>
+        <td headers="idInput-header">9623</td>
+        <td headers="titleInput-header">Quality Assurance</td>
+        <td headers="annualSalaryInput-header">$ 48,000</td>
         <td headers="delete-header">
-          <button onclick="deleteHandler(event)">Delete</button>
+          <button class="delete" onclick="deleteHandler(event)">Delete</button>
         </td>
-      </tr> -->
+      </tr>
     </tbody>
     <tfoot>
       <tr>
