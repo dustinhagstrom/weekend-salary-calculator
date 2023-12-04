@@ -83,3 +83,7 @@ footer {
     display: flex;
     justify-content: flex-end;
 }
+
+.over-budget {
+    background-color: red;
+}

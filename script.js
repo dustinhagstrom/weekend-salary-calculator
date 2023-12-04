@@ -158,14 +158,19 @@ function calculateTotalMonthlySalaries() {
     }
     // console.log("total monthly:", monthlySalaryExpense);
     monthlySalaryExpense = parseFloat(monthlySalaryExpense).toFixed(2);
-
+    let classes = totalMonthlySalaryParagraph.classList;
     if (
         monthlySalaryExpense > 20000 &&
-        totalMonthlySalaryParagraph.classList.contains("within-budget")
+        classes.contains("within-budget")
     ) {
         totalMonthlySalaryParagraph.classList.replace(
             "within-budget",
             "over-budget"
+        );
+    } else if (classes.contains("over-budget")){
+        totalMonthlySalaryParagraph.classList.replace(
+            "over-budget",
+            "within-budget"
         );
     }
     // console.log("classes associated with total monthly salary:", totalMonthlySalaryParagraph.classList);
